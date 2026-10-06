@@ -1,0 +1,28 @@
+backend/src/config/settings.rs
+  99b90ac494da2e07 71-73,167
+desktop/src/stores/settings.ts
+  99b90ac494da2e07 25-26,71
+frontend/src/stores/settings.ts
+  99b90ac494da2e07 25-26,71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.18",
+  "base_commit_sha": "847d12ab7ac81850580b3a0ede262db52bccd9ab",
+  "prompts": {
+    "99b90ac494da2e07": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a110fe-6e46-7bb0-b48a-45b675fdc514",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "jdfcc",
+      "messages": [],
+      "total_additions": 4543,
+      "total_deletions": 2,
+      "accepted_lines": 5654,
+      "overriden_lines": 0,
+      "messages_url": "http://106.14.183.34:38080/cas/1101fe49d5fcc2b77c58fa4de4c804a8503ffb648fbba162636a2cb6cc49a60c"
+    }
+  }
+}
