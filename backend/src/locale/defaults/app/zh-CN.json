@@ -74,7 +74,9 @@
     "removeTitle": "移除主播",
     "streamUrl": "转发流地址",
     "streamUrlHint": "直接用播放器打开此地址即可播放",
-    "copyStreamUrl": "复制转发地址"
+    "copyStreamUrl": "复制转发地址",
+    "showThumbnail": "显示封面",
+    "hideThumbnail": "隐藏封面"
   },
   "addStreamer": {
     "title": "添加主播",
@@ -295,6 +297,10 @@
     "maxTmpDirGb": {
       "label": "后处理临时目录最大占用（GB）",
       "hint": "后处理模块运行时产生的临时文件上限，超出后自动删除最旧的文件。0 表示不限制，默认 50 GB"
+    },
+    "publicMode": {
+      "label": "公共模式",
+      "hint": "启用后，主播列表中的封面默认以模糊马赛克遮挡，点击封面上的隐私按钮才会显示。"
     },
     "apiProxy": {
       "label": "API 代理（访问 stripchat.com，留空不使用）",

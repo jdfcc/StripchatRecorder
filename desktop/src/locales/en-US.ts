@@ -74,6 +74,8 @@ export default {
 		streamUrl: "Stream URL",
 		streamUrlHint: "Open this URL directly in any player to watch",
 		copyStreamUrl: "Copy stream URL",
+		showThumbnail: "Show thumbnail",
+		hideThumbnail: "Hide thumbnail",
 	},
 	addStreamer: {
 		title: "Add Streamer",
@@ -289,6 +291,10 @@ export default {
 		maxTmpDirGb: {
 			label: "Max Tmp Directory Size (GB)",
 			hint: "Size limit for temporary files created by post-processing modules. Oldest files are deleted when the limit is exceeded. 0 means unlimited. Default: 50 GB.",
+		},
+		publicMode: {
+			label: "Public Mode",
+			hint: "When enabled, streamer thumbnails are blurred by default and only appear after clicking the privacy button.",
 		},
 		apiProxy: {
 			label: "API Proxy (for stripchat.com, leave empty to disable)",

@@ -68,6 +68,9 @@ pub struct Settings {
     pub poll_interval_secs: u64,
     /// 是否默认开启自动录制 / Whether auto-record is enabled by default
     pub auto_record: bool,
+    /// 公共模式下默认遮挡主播封面 / Blur streamer thumbnails by default in public mode
+    #[serde(default)]
+    pub public_mode: bool,
     /// Stripchat API 代理地址 / Stripchat API proxy URL
     pub api_proxy_url: Option<String>,
     /// CDN 分片下载代理地址 / CDN segment download proxy URL
@@ -161,6 +164,7 @@ impl Default for Settings {
             output_dir,
             poll_interval_secs: 30,
             auto_record: true,
+            public_mode: false,
             api_proxy_url: None,
             cdn_proxy_url: None,
             sc_mirror_url: None,

@@ -22,6 +22,8 @@ export interface Settings {
 	poll_interval_secs: number;
 	/** 是否默认开启自动录制 / Whether auto-record is enabled by default */
 	auto_record: boolean;
+	/** 公共模式下是否默认遮挡主播封面 / Whether to obscure streamer thumbnails in public mode */
+	public_mode: boolean;
 	/** Stripchat API 代理地址 / Stripchat API proxy URL */
 	api_proxy_url: string | null;
 	/** CDN 缩略图代理地址 / CDN thumbnail proxy URL */
@@ -66,6 +68,7 @@ export const useSettingsStore = defineStore("settings", () => {
 		output_dir: "",
 		poll_interval_secs: 30,
 		auto_record: true,
+		public_mode: false,
 		api_proxy_url: null,
 		cdn_proxy_url: null,
 		sc_mirror_url: null,

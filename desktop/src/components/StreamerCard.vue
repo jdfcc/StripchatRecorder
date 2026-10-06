@@ -25,10 +25,10 @@
 	import { Label } from "@/components/ui/label";
 	import { ref, watch, computed } from "vue";
 	import { useFastThumbnail } from "@/composables/useFastThumbnail";
-	import { X, Circle, Eye } from "@lucide/vue";
+	import { X, Circle, Eye, EyeOff } from "@lucide/vue";
 	import { useI18n } from "vue-i18n";
 
-	const props = defineProps<{ streamer: StreamerEntry }>();
+	const props = defineProps<{ streamer: StreamerEntry; publicMode: boolean }>();
 	void props;
 	const emit = defineEmits<{
 		remove: [];
@@ -46,6 +46,17 @@
 
 	const thumbnailSrc = computed(() => props.streamer.thumbnail_url ?? null);
 	const fastThumbnail = useFastThumbnail(thumbnailSrc);
+	const thumbnailRevealed = ref(false);
+	const thumbnailObscured = computed(
+		() => props.publicMode && !thumbnailRevealed.value,
+	);
+
+	watch(
+		() => props.publicMode,
+		(enabled) => {
+			if (enabled) thumbnailRevealed.value = false;
+		},
+	);
 
 	function onAutoChange(val: boolean) {
 		autoRecord.value = val;
@@ -72,7 +83,8 @@
 				v-if="fastThumbnail"
 				:src="fastThumbnail"
 				loading="lazy"
-				class="w-full h-full object-cover"
+				class="w-full h-full object-cover transition-[filter,transform] duration-200"
+				:class="{ 'blur-xl scale-110': thumbnailObscured }"
 			/>
 			<div
 				v-else
@@ -80,6 +92,18 @@
 			>
 				{{ streamer.username[0].toUpperCase() }}
 			</div>
+			<Button
+				v-if="publicMode && fastThumbnail"
+				variant="secondary"
+				size="icon"
+				class="absolute left-2 top-2 z-10 h-8 w-8 bg-background/80 shadow-sm backdrop-blur-sm"
+				:title="t(thumbnailObscured ? 'streamerCard.showThumbnail' : 'streamerCard.hideThumbnail')"
+				:aria-label="t(thumbnailObscured ? 'streamerCard.showThumbnail' : 'streamerCard.hideThumbnail')"
+				@click="thumbnailRevealed = !thumbnailRevealed"
+			>
+				<Eye v-if="thumbnailObscured" class="size-4" />
+				<EyeOff v-else class="size-4" />
+			</Button>
 			<Circle
 				v-if="streamer.is_recording"
 				class="absolute top-1.5 right-2 size-2.5 fill-red-500 text-red-500 animate-pulse"

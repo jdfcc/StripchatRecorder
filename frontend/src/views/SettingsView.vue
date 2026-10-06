@@ -29,6 +29,7 @@
 	import { Button } from "@/components/ui/button";
 	import { Input } from "@/components/ui/input";
 	import { Label } from "@/components/ui/label";
+	import { Switch } from "@/components/ui/switch";
 	import {
 		NumberField,
 		NumberFieldContent,
@@ -81,6 +82,7 @@
 		output_dir: "",
 		poll_interval_secs: 30,
 		auto_record: true,
+		public_mode: false,
 		api_proxy_url: null,
 		cdn_proxy_url: null,
 		sc_mirror_url: null,
@@ -143,6 +145,7 @@
 		() => ({
 			poll_interval_secs: form.poll_interval_secs,
 			auto_record: form.auto_record,
+			public_mode: form.public_mode,
 			max_concurrent: form.max_concurrent,
 			max_recording_duration_secs: form.max_recording_duration_secs,
 			merge_format: form.merge_format,
@@ -340,6 +343,18 @@
 				>
 					{{ t("settings.sections.recording") }}
 				</h2>
+
+				<div class="flex items-center justify-between gap-4 rounded-lg border p-3">
+					<div class="flex flex-col gap-1">
+						<Label for="public-mode" class="cursor-pointer">
+							{{ t("settings.publicMode.label") }}
+						</Label>
+						<p class="text-xs text-muted-foreground">
+							{{ t("settings.publicMode.hint") }}
+						</p>
+					</div>
+					<Switch id="public-mode" v-model="form.public_mode" />
+				</div>
 
 				<div class="flex flex-col gap-1.5">
 					<Label>{{ t("settings.outputDir.label") }}</Label>

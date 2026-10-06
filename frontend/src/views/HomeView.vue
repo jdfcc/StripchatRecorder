@@ -9,8 +9,9 @@
     Initializes event listeners and loads the streamer list from backend on mount.
 -->
 <script setup lang="ts">
-	import { onMounted, ref } from "vue";
+	import { computed, onMounted, ref } from "vue";
 	import { useStreamersStore } from "../stores/streamers";
+	import { useSettingsStore } from "../stores/settings";
 	import type { StreamerEntry } from "../stores/streamers";
 	import { useNotify } from "../composables/useNotify";
 	import { useMergingStore } from "../stores/merging";
@@ -21,15 +22,28 @@
 	import { useI18n } from "vue-i18n";
 
 	const store = useStreamersStore();
+	const settingsStore = useSettingsStore();
 	const mergingStore = useMergingStore();
 	const ppStatusStore = usePpStatusStore();
 	const { toast, confirm } = useNotify();
 	const { t } = useI18n();
 	/** 是否显示添加主播对话框 / Whether to show the add streamer dialog */
 	const showAdd = ref(false);
+	const settingsLoaded = ref(false);
+	const publicMode = computed(
+		() => !settingsLoaded.value || settingsStore.settings.public_mode,
+	);
 
 	onMounted(async () => {
 		store.initListeners();
+		try {
+			await settingsStore.initListeners();
+			await settingsStore.fetchSettings();
+			settingsLoaded.value = true;
+		} catch {
+			// 设置读取失败时保持隐私遮挡，避免意外闪出封面。
+			// Keep thumbnails obscured if settings cannot be loaded.
+		}
 		await store.fetchStreamers();
 	});
 
@@ -164,6 +178,7 @@
 				)"
 				:key="s.username"
 				:streamer="s"
+				:public-mode="publicMode"
 				@remove="handleRemove(s.username)"
 				@toggle-auto="handleToggleAuto(s.username, s, $event)"
 				@start="handleStart(s.username)"
